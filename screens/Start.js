@@ -4,7 +4,6 @@ import { useState } from "react";
 import Card from '../components/Card';
 
 
-
 export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue }) {
   const name = "Sign up";
   const [email, setEmail] = useState("");
