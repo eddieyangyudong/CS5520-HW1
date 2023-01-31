@@ -13,7 +13,9 @@ export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue, stored
   const [signUpEmail, setSignUpEmail] = useState(null);
   const [signUpPhone, setSignUpPhone] = useState(null);
 
+  // handle input email 
   const handleCheckEmail = (text) => {
+    // use re and regex to check if the input string is valid
     let re = /\S+@\S+\.\S+/;
     let regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
     setEmail(text);
@@ -25,6 +27,7 @@ export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue, stored
     }
   }
 
+  // handle input phone
   const handleCheckPhone = (text) => {
     setPhone(text);
     if (isNaN(text) || text.length !== 10) {

@@ -15,7 +15,7 @@ export default App = () => {
   const [checkEmail, setCheckEmail] = useState(false);
   const [checkPhone, setCheckPhone] = useState(false);
 
-
+  // save info and reset all variables
   function saveInfo(email, phone) {
     setEmail(email);
     setPhone(phone);
