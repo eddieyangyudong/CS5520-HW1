@@ -4,10 +4,10 @@ import { useState } from "react";
 import Card from '../components/Card';
 
 
-export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue }) {
+export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue, storedEmail, storedPhone}) {
   const name = "Sign up";
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(storedEmail);
+  const [phone, setPhone] = useState(storedPhone);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
   const [checkValidPhone, setCheckValidPhone] = useState(false);
   const [signUpEmail, setSignUpEmail] = useState(null);
@@ -40,6 +40,7 @@ export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue }) {
     setPhone(text);
   }
 
+
   return (
     <View style={styles.container}>
       <Header name={name} />
@@ -70,7 +71,7 @@ export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue }) {
             style={styles.textInput} />
           <View>
             {signUpPhone ? (<Text>Please enter a valid phone number</Text>)
-              : (<Text/>
+              : (<Text />
               )}
             <Text></Text>
           </View>
@@ -88,11 +89,9 @@ export default function Start({ saveInfo, checkEmailTrue, checkPhoneTrue }) {
           <Button
             title="Sign up"
             onPress={() => {
-              saveInfo(email + " " + phone);
-              checkValidEmail ? setSignUpEmail(true) : checkEmailTrue();
-              checkValidPhone ? setSignUpPhone(true) : checkPhoneTrue();
-              console.log(email);
-              console.log(checkValidEmail);
+              saveInfo(email, phone);
+              checkValidEmail || email === "" ? setSignUpEmail(true) : checkEmailTrue();
+              checkValidPhone || phone === "" ? setSignUpPhone(true) : checkPhoneTrue();
             }}
             style={styles.signUpButton}
           />
