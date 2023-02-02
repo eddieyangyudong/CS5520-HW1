@@ -7,12 +7,24 @@ import { LinearGradient } from "expo-linear-gradient";
 import Finish from "./screens/Finish";
 
 export default App = () => {
-  const [enteredText, setEnteredText] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [goBackButton, setGoBackButton] = useState(false);
   const [confirmButton, setComfirmButton] = useState(null);
   const [startAgainButton, setStartAgainButton] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
   const [checkPhone, setCheckPhone] = useState(false);
+
+  // save info and reset all variables
+  function saveInfo(email, phone) {
+    setEmail(email);
+    setPhone(phone);
+    setGoBackButton(false);
+    setComfirmButton(null);
+    setStartAgainButton(false);
+    setCheckEmail(false);
+    setCheckPhone(false);
+  }
 
   function goBack() {
     setGoBackButton(true);
@@ -38,57 +50,51 @@ export default App = () => {
     setStartAgainButton(true);
   }
 
-  let bufferScreen = <Start saveInfo={(text) => {
-    setEnteredText(text);
-  }}
+  let bufferScreen = <Start saveInfo={saveInfo}
     checkEmailTrue={checkEmailTrue}
     checkPhoneTrue={checkPhoneTrue}
   />
 
 
-  if (enteredText !== "" && checkEmail && checkPhone) {
-    bufferScreen = <Confirm enteredInfo={enteredText} 
+  if (email !== "" && phone !== "" 
+  && checkEmail && checkPhone) {
+    bufferScreen = <Confirm email={email} 
+    phone={phone}
     goBack={goBack} 
     confirmText={confirmText} 
     finishLater={finishLater}/>
   }
 
   if (goBackButton === true) {
-    bufferScreen = <Start saveInfo={(text) => {
-      setEnteredText(text);
-      setGoBackButton(false);
-      setComfirmButton(null);
-    }} 
+    bufferScreen = <Start saveInfo={saveInfo} 
     checkEmailTrue={checkEmailTrue}
     checkPhoneTrue={checkPhoneTrue}
+    storedEmail={email}
+    storedPhone={phone}
     />
   }
 
   if (confirmButton === true) {
     bufferScreen = <Finish 
     confirmButton={confirmButton} 
-    lastDigit={enteredText.charAt(enteredText.length-1)} 
+    lastDigit={phone.charAt(phone.length-1)} 
     startAgain={startAgain}/>
   }
 
   if (confirmButton === false) {
     bufferScreen = <Finish 
     confirmButton={confirmButton} 
-    lastDigit={enteredText.charAt(enteredText.length-1)} 
+    lastDigit={phone.charAt(phone.length-1)} 
     startAgain={startAgain}/>
   }
 
   if (startAgainButton === true) {
-    bufferScreen = <Start saveInfo={(text) => {
-      setEnteredText(text);
-      setGoBackButton(false);
-      setComfirmButton(null);
-      setStartAgainButton(false);
-      setCheckEmail(false);
-      setCheckPhone(false);
-    }} 
+    bufferScreen = <Start saveInfo={saveInfo} 
     checkEmailTrue={checkEmailTrue}
-    checkPhoneTrue={checkPhoneTrue}/>
+    checkPhoneTrue={checkPhoneTrue}
+    storedEmail=""
+    storedPhone=""
+    />
 
   }
   return (

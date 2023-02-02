@@ -2,13 +2,7 @@ import { View, Text, Button, StyleSheet } from 'react-native'
 import React from 'react'
 import Card from '../components/Card'
 
-// complete recall confirmText, finishLater function
-const Confirm = ({ enteredInfo, goBack, confirmText, finishLater }) => {
-
-  const info = enteredInfo.split(" ");
-  const email = info[0];
-  const phone = info[info.length-1];
-
+const Confirm = ({ email, phone, goBack, confirmText, finishLater }) => {
   return (
     <View style={styles.container}>
       <Card>

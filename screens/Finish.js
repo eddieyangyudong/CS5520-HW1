@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Button, Image, SafeAreaView } from 'react-nativ
 import React from 'react'
 import Card from '../components/Card'
 
+// render different results with the chosen button
 function confirmOrNot(confirmButton, lastDigit) {
   const brackets = "(based on the last digit of your phone number).";
   if (confirmButton === true) {
